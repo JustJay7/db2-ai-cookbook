@@ -41,6 +41,7 @@ Pick a module, pick a recipe inside it, follow the Quick start.
 | [06-recommendation](06-recommendation/) | Item-to-item recommendation: "find me something like this one — that I can actually get". Product attributes become a vector, `VECTOR_DISTANCE` ranks the catalogue, and store, size and stock filter it in the same statement — because a recommendation nobody can buy is worthless. | **Db2 12.1.2+** · Python + watsonx.ai · Flask + React | 2 |
 | [07-in-database-ml](07-in-database-ml/) | Classical supervised learning, in SQL. Db2's IDAX stored procedures split a table, fill its gaps, fit a regression model and measure it — every step a `CALL`, with the data never leaving the database. Predicts what a customer will spend from attributes you already hold. A branch rather than a next step: it assumes nothing from the modules before it. | **Db2 12.1 + IDAX enabled** · SQL only, or Python for the walkthrough | 1 |
 | [08-language-model-integration](08-language-model-integration/) | Call an embedding or text-generation model straight from SQL. `CREATE EXTERNAL MODEL` registers an OpenAI-compatible endpoint as a catalogue object, and `TO_EMBEDDING` / `TEXT_GENERATION` invoke it mid-statement, so `UPDATE … SET embedding = TO_EMBEDDING(col USING M)` embeds a whole table with no application in the loop. The same DDL reaches a llama.cpp process on localhost and a hosted API, differing only in URL, model id, width and key. A branch rather than a next step, and the mechanism 03-hybrid-search uses for its semantic leg. | **Db2 12.1.5** · SQL only; on-prem half needs no credentials | 1 |
+| [09-temporal-search](09-temporal-search/) | Search what was true on a given date. A bitemporal table keeps every version of a row with the period it applied, and `FOR BUSINESS_TIME AS OF` filters to the version in force while `VECTOR_DISTANCE` ranks by meaning, in one statement. `UPDATE … FOR PORTION OF BUSINESS_TIME` changes a row from a date onwards, and `FOR SYSTEM_TIME AS OF` replays what the database held at any moment. A branch rather than a next step: it assumes only 01-tabular-search. | **Db2 12.1.2+** · Python + local embeddings, no API key | 1 |
 
 More modules are on the way. See [Adding a module](#adding-a-module) below.
 
@@ -106,6 +107,9 @@ db2-ai-cookbook/
 │   └── README.md
 ├── 08-language-model-integration/ # register a model, call it from SQL
 │   ├── sql-local-and-cloud-models/
+│   └── README.md
+├── 09-temporal-search/           # what applied on a date, ranked by meaning
+│   ├── python-local-embeddings/
 │   └── README.md
 ├── LICENSE
 └── README.md                     # you are here
